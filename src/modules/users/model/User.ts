@@ -12,7 +12,17 @@ class User {
     if (!this.id) {
       this.id = uuidV4();
     }
+    if (!this.admin) {
+      this.admin = false;
+    }
+    this.created_at = new Date();
+    this.updated_at = new Date();
+
   }
 }
-
+/*   name,
+     admin: false,
+     email,
+     created_at: new Date(),
+     updated_at: new Date(),*/
 export { User };

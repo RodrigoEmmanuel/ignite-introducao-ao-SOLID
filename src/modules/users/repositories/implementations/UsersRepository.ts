@@ -23,10 +23,8 @@ class UsersRepository implements IUsersRepository {
 
     Object.assign(user, {
       name,
-      admin: false,
-      email,
-      created_at: new Date(),
-    })
+      email
+    });
 
     this.users.push(user);
 
@@ -48,6 +46,7 @@ class UsersRepository implements IUsersRepository {
   turnAdmin(receivedUser: User): User {
 
     receivedUser.admin = true;
+    receivedUser.updated_at = new Date();
 
     return receivedUser;
   }
