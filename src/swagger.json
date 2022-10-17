@@ -1,0 +1,261 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Introduction to Solid",
+        "description": "Ignite Challenge",
+        "version": "1.0.0",
+        "contact": {
+            "email": "rodrigo.emmanuel.pj@gmail.com"
+        }
+    },
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Create an user",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "Robson",
+                                    "email": "Robson@email.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "itens": {},
+                                    "example": {
+                                        "id": "4b88220f-057d-4b62-ab13-24b74f26c979",
+                                        "admin": false,
+                                        "created_at": "2022-10-17T17:51:57.656Z",
+                                        "updated_at": "2022-10-17T17:51:57.656Z",
+                                        "name": "Robson",
+                                        "email": "Robson@email.com"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Email Already used",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "itens": {},
+                                    "example": {
+                                        "error": "Email Already used"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "List all users",
+                "description": "Only admin user can access",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "required": true,
+                        "name": "user_id",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "itens": {
+                                        "id": "string",
+                                        "admin": "boolean",
+                                        "created_at": "string",
+                                        "updated_at": "string",
+                                        "name": "string",
+                                        "email": "string"
+                                    },
+                                    "example": [
+                                        {
+                                            "id": "f65d4fa7-3ee1-4476-8169-61d40de044f3",
+                                            "admin": true,
+                                            "created_at": "2022-10-11T12:59:48.132Z",
+                                            "updated_at": "2022-10-11T12:59:48.132Z",
+                                            "name": "User name sample",
+                                            "email": "User email sample"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "itens": {},
+                                    "example": {
+                                        "error": "User is not admin!"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "itens": {},
+                                    "example": {
+                                        "error": "User not Found!"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/:user_id/admin": {
+            "patch": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Turn an user as admin",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "required": true,
+                        "name": "user_id",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "itens": {},
+                                    "example": {
+                                        "id": "4b88220f-057d-4b62-ab13-24b74f26c979",
+                                        "admin": true,
+                                        "created_at": "2022-10-17T17:51:57.656Z",
+                                        "updated_at": "2022-10-17T17:51:57.656Z",
+                                        "name": "Robson",
+                                        "email": "Robson@email.com"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "itens": {},
+                                    "example": {
+                                        "error": "Email Already used"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/:user_id": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Find an user by Id",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "required": true,
+                        "name": "user_id",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "itens": {
+                                        "id": "string",
+                                        "admin": "boolean",
+                                        "created_at": "string",
+                                        "updated_at": "string",
+                                        "name": "string",
+                                        "email": "string"
+                                    },
+                                    "example": [
+                                        {
+                                            "id": "f65d4fa7-3ee1-4476-8169-61d40de044f3",
+                                            "admin": false,
+                                            "created_at": "2022-10-11T12:59:48.132Z",
+                                            "updated_at": "2022-10-11T12:59:48.132Z",
+                                            "name": "User name sample",
+                                            "email": "User email sample"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "itens": {},
+                                    "example": {
+                                        "error": "User not Found!"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
